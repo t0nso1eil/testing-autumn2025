@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { authenticate } from '../../src/middlewares/auth.middleware';
-import authService from '../../src/services/auth.service';
+import { authenticate } from '../../../src/middlewares/auth.middleware';
+import authService from '../../../src/services/auth.service';
 
-jest.mock('../../src/services/auth.service');
+jest.mock('../../../src/services/auth.service');
 
 const mockedAuthService = jest.mocked(authService);
 

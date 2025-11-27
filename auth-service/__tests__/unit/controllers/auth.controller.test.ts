@@ -1,10 +1,10 @@
-import { AuthController } from "../../src/controllers/auth.controller";
-import authService from "../../src/services/auth.service";
-import { validateDto } from "../../src/utils/validate.util";
-import { RegisterDto, LoginDto } from "../../src/dto/auth.dto";
+import { AuthController } from "../../../src/controllers/auth.controller";
+import authService from "../../../src/services/auth.service";
+import { validateDto } from "../../../src/utils/validate.util";
+import { RegisterDto, LoginDto } from "../../../src/dto/auth.dto";
 
-jest.mock('../../src/services/auth.service');
-jest.mock('../../src/utils/validate.util');
+jest.mock('../../../src/services/auth.service');
+jest.mock('../../../src/utils/validate.util');
 
 const mockedAuthService = jest.mocked(authService);
 const mockedValidateDto = jest.mocked(validateDto);

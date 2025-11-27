@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { RegisterDto, LoginDto } from '../../src/dto/auth.dto';
+import { RegisterDto, LoginDto } from '../../../src/dto/auth.dto';
 
 describe('Auth DTOs', () => {
     describe('Register DTO', () => {

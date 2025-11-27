@@ -1,5 +1,5 @@
-import { validateDto } from '../../src/utils/validate.util';
-import { RegisterDto } from '../../src/dto/auth.dto';
+import { validateDto } from '../../../src/utils/validate.util';
+import { RegisterDto } from '../../../src/dto/auth.dto';
 import { validate } from 'class-validator';
 
 jest.mock('class-validator');

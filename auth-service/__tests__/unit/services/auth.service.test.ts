@@ -1,13 +1,13 @@
-import { AppDataSource } from "../../src/config/database";
-import { AuthService } from "../../src/services/auth.service";
-import { UserEntity } from "../../src/models/user.entity";
-import { RoleEnum } from "../../src/models/role.enum";
+import { AppDataSource } from "../../../src/config/database";
+import { AuthService } from "../../../src/services/auth.service";
+import { UserEntity } from "../../../src/models/user.entity";
+import { RoleEnum } from "../../../src/models/role.enum";
 import * as bcrypt from 'bcryptjs';
-import * as jwtUtils from '../../src/utils/jwt';
+import * as jwtUtils from '../../../src/utils/jwt';
 
-jest.mock('../../src/config/database');
+jest.mock('../../../src/config/database');
 jest.mock('bcryptjs');
-jest.mock('../../src/utils/jwt');
+jest.mock('../../../src/utils/jwt');
 
 const mockedAppDataSource = jest.mocked(AppDataSource);
 const mockedBcrypt = jest.mocked(bcrypt);

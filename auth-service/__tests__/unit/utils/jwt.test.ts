@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { JsonWebTokenError, TokenExpiredError, NotBeforeError } from 'jsonwebtoken';
-import { UserEntity } from '../../src/models/user.entity';
-import { RoleEnum } from '../../src/models/role.enum';
+import { UserEntity } from '../../../src/models/user.entity';
+import { RoleEnum } from '../../../src/models/role.enum';
 
 jest.mock('dotenv', () => ({
     config: jest.fn()
@@ -45,7 +45,7 @@ describe('JWT utils', () => {
         process.env.JWT_SECRET = 'secretsecretsecret';
         process.env.JWT_EXPIRES_IN = '3600';
 
-        const jwtModule = await import('../../src/utils/jwt');
+        const jwtModule = await import('../../../src/utils/jwt');
         generateToken = jwtModule.generateToken;
         verifyToken = jwtModule.verifyToken;
     });
