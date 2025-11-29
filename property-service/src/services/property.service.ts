@@ -3,6 +3,7 @@ import { Property } from "../models/property.entity";
 import { CreatePropertyDto, UpdatePropertyDto, SearchPropertyDto } from "../dto/property.dto";
 import userClient from "./user.client";
 import { Request } from 'express';
+import { validate } from "class-validator";
 
 export class PropertyService {
     private propertyRepository = AppDataSource.getRepository(Property);
@@ -17,7 +18,7 @@ export class PropertyService {
         if (!property) {
             throw new Error("Property not found");
         }
-        return req ? this.enrichPropertyWithOwner(property, req) : property;
+        return this.enrichPropertyWithOwner(property, req);
     }
 
     async createProperty(dto: CreatePropertyDto, userId: number, req: Request) {
@@ -25,30 +26,47 @@ export class PropertyService {
             throw new Error('Authorization header is required');
         }
 
+        const validationErrors = await validate(dto as any);
+        if (validationErrors.length > 0) {
+            const errorMessages = validationErrors.map(error => Object.values(error.constraints || {})).flat();
+            throw new Error(`Validation failed: ${errorMessages.join(', ')}`);
+        }
+
         await userClient.getUserById(userId, req.headers.authorization);
 
         const property = this.propertyRepository.create({
             ...dto,
-            ownerId: userId
+            ownerId: userId,
+            price: typeof dto.price === 'string' ? parseFloat(dto.price) : dto.price
         });
 
         await this.propertyRepository.save(property);
-        return this.getPropertyById(property.id);
+        return this.getPropertyById(property.id, req);
     }
 
-    async updateProperty(id: number, dto: UpdatePropertyDto, userId: number, role: string) {
+    async updateProperty(id: number, dto: UpdatePropertyDto, userId: number, role: string, req?: Request) {
         const property = await this.propertyRepository.findOneBy({ id });
         if (!property) {
             throw new Error("Property not found");
         }
 
-        if (property.ownerId !== userId && role !== 'ADMIN') {
+        if (property.ownerId !== userId && role !== 'admin') {
             throw new Error("Forbidden");
+        }
+
+        const validationErrors = await validate(dto as any);
+        if (validationErrors.length > 0) {
+            const errorMessages = validationErrors.map(error => Object.values(error.constraints || {})).flat();
+            throw new Error(`Validation failed: ${errorMessages.join(', ')}`);
+        }
+
+        if (dto.price && typeof dto.price === 'string') {
+            dto.price = parseFloat(dto.price);
         }
 
         Object.assign(property, dto);
         await this.propertyRepository.save(property);
-        return this.enrichPropertyWithOwner(property);
+        return this.enrichPropertyWithOwner(property, req);
     }
 
     async deleteProperty(id: number, userId: number, role: string) {
@@ -57,7 +75,7 @@ export class PropertyService {
             throw new Error("Property not found");
         }
 
-        if (property.ownerId !== userId && role !== 'ADMIN') {
+        if (property.ownerId !== userId && role !== 'admin') {
             throw new Error("Forbidden");
         }
 
@@ -65,18 +83,20 @@ export class PropertyService {
         return { message: "Property deleted successfully" };
     }
 
-    async searchProperties(dto: SearchPropertyDto) {
+    async searchProperties(dto: SearchPropertyDto, req?: Request) {
         const qb = this.propertyRepository.createQueryBuilder("property");
+
+        console.log('Search filters:', dto);
 
         if (dto.location) {
             qb.andWhere("property.location ILIKE :location", { location: `%${dto.location}%` });
         }
 
-        if (dto.minPrice) {
+        if (dto.minPrice !== undefined && dto.minPrice !== null) {
             qb.andWhere("property.price >= :minPrice", { minPrice: Number(dto.minPrice) });
         }
 
-        if (dto.maxPrice) {
+        if (dto.maxPrice !== undefined && dto.maxPrice !== null) {
             qb.andWhere("property.price <= :maxPrice", { maxPrice: Number(dto.maxPrice) });
         }
 
@@ -88,8 +108,13 @@ export class PropertyService {
             qb.andWhere("property.rentalType = :rentalType", { rentalType: dto.rentalType });
         }
 
+        const sql = qb.getSql();
+        console.log('SQL Query:', sql);
+
         const properties = await qb.getMany();
-        return this.enrichPropertiesWithOwner(properties);
+        console.log('Found properties:', properties.length);
+
+        return this.enrichPropertiesWithOwner(properties, req);
     }
 
     private async enrichPropertyWithOwner(property: Property, req?: Request) {

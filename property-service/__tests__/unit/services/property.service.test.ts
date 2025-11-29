@@ -8,17 +8,17 @@ jest.mock('dotenv', () => ({
     config: jest.fn()
 }));
 
-jest.mock('../../src/config/database');
-jest.mock('../../src/services/user.client');
+jest.mock('../../../src/config/database');
+jest.mock('../../../src/services/user.client');
 
-import { AppDataSource } from "../../src/config/database";
-import { PropertyService } from "../../src/services/property.service";
-import userClient from "../../src/services/user.client";
-import { Property } from "../../src/models/property.entity";
-import { CreatePropertyDto, UpdatePropertyDto, SearchPropertyDto } from "../../src/dto/property.dto";
+import { AppDataSource } from "../../../src/config/database";
+import { PropertyService } from "../../../src/services/property.service";
+import userClient from "../../../src/services/user.client";
+import { Property } from "../../../src/models/property.entity";
+import { CreatePropertyDto, UpdatePropertyDto, SearchPropertyDto } from "../../../src/dto/property.dto";
 import { Request } from 'express';
-import { PropertyType } from '../../src/models/property-type.enum';
-import { RentalType } from '../../src/models/rental-type.enum';
+import { PropertyType } from '../../../src/models/property-type.enum';
+import { RentalType } from '../../../src/models/rental-type.enum';
 
 const mockedAppDataSource = jest.mocked(AppDataSource);
 const mockedUserClient = jest.mocked(userClient);

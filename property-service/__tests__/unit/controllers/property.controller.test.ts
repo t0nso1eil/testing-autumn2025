@@ -1,19 +1,19 @@
 process.env.AUTH_SERVICE_URL = 'http://localhost:3000';
 
-jest.mock('../../src/services/property.service');
-jest.mock('../../src/services/auth.client');
-jest.mock('../../src/utils/validate.util');
+jest.mock('../../../src/services/property.service');
+jest.mock('../../../src/services/auth.client');
+jest.mock('../../../src/utils/validate.util');
 jest.mock('dotenv', () => ({
     config: jest.fn()
 }));
 
-import { PropertyController } from "../../src/controllers/property.controller";
-import propertyService from "../../src/services/property.service";
-import authClient from "../../src/services/auth.client";
-import { validateDto } from "../../src/utils/validate.util";
-import {CreatePropertyDto, SearchPropertyDto, UpdatePropertyDto} from "../../src/dto/property.dto";
-import { PropertyType } from '../../src/models/property-type.enum';
-import { RentalType } from '../../src/models/rental-type.enum';
+import { PropertyController } from "../../../src/controllers/property.controller";
+import propertyService from "../../../src/services/property.service";
+import authClient from "../../../src/services/auth.client";
+import { validateDto } from "../../../src/utils/validate.util";
+import {CreatePropertyDto, SearchPropertyDto, UpdatePropertyDto} from "../../../src/dto/property.dto";
+import { PropertyType } from '../../../src/models/property-type.enum';
+import { RentalType } from '../../../src/models/rental-type.enum';
 
 const mockedPropertyService = jest.mocked(propertyService);
 const mockedAuthClient = jest.mocked(authClient);

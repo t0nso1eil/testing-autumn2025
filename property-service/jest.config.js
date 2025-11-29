@@ -6,11 +6,12 @@ module.exports = {
     coverageDirectory: 'coverage',
     coverageReporters: ['text', 'lcov', 'html'],
     testMatch: [
-        "**/__tests__/**/*.test.ts"
+        "**/__tests__/**/*.(test|integration).ts"
     ],
     coveragePathIgnorePatterns: [
         "/node_modules/",
-        "/dist/"
+        "/dist/",
+        "/__tests__/"
     ],
     verbose: true,
     moduleFileExtensions: ['ts', 'js', 'json'],
@@ -22,5 +23,9 @@ module.exports = {
         'src/**/*.ts',
         '!src/**/*.d.ts',
         '!src/server.ts'
+    ],
+    testPathIgnorePatterns: [
+        "/node_modules/",
+        "/dist/"
     ]
 };

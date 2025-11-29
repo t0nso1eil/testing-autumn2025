@@ -1,56 +1,61 @@
-import { IsNotEmpty, IsNumber, IsString, IsEnum, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsEnum, IsOptional, IsString, Min, Max } from 'class-validator';
 import { PropertyType } from '../models/property-type.enum';
 import { RentalType } from '../models/rental-type.enum';
+import { Transform } from 'class-transformer';
 
 export class CreatePropertyDto {
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'Title is required' })
     @IsString()
     title!: string;
 
-    @IsOptional()
+    @IsNotEmpty({ message: 'Description is required' })
     @IsString()
-    description?: string;
+    description!: string;
 
-    @IsNotEmpty()
-    @IsEnum(RentalType)
+    @IsEnum(RentalType, { message: 'Invalid rental type' })
     rentalType!: RentalType;
 
-    @IsNotEmpty()
-    @IsNumber()
+    @IsNumber({}, { message: 'Price must be a number' })
+    @IsPositive({ message: 'Price must be positive' })
+    @Min(1, { message: 'Price must be at least 1' })
     price!: number;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'Location is required' })
     @IsString()
     location!: string;
 
-    @IsNotEmpty()
-    @IsEnum(PropertyType)
+    @IsEnum(PropertyType, { message: 'Invalid property type' })
     propertyType!: PropertyType;
 }
 
 export class UpdatePropertyDto {
     @IsOptional()
+    @IsNotEmpty({ message: 'Title cannot be empty' })
     @IsString()
     title?: string;
 
     @IsOptional()
+    @IsNotEmpty({ message: 'Description cannot be empty' })
     @IsString()
     description?: string;
 
     @IsOptional()
-    @IsEnum(RentalType)
+    @IsEnum(RentalType, { message: 'Invalid rental type' })
     rentalType?: RentalType;
 
     @IsOptional()
-    @IsNumber()
+    @IsNumber({}, { message: 'Price must be a number' })
+    @IsPositive({ message: 'Price must be positive' })
+    @Min(1, { message: 'Price must be at least 1' })
     price?: number;
 
     @IsOptional()
+    @IsNotEmpty({ message: 'Location cannot be empty' })
     @IsString()
     location?: string;
 
     @IsOptional()
-    @IsEnum(PropertyType)
+    @IsEnum(PropertyType, { message: 'Invalid property type' })
     propertyType?: PropertyType;
 }
 
@@ -60,18 +65,22 @@ export class SearchPropertyDto {
     location?: string;
 
     @IsOptional()
-    @IsNumber()
+    @Transform(({ value }) => value === '' ? undefined : Number(value))
+    @IsNumber({}, { message: 'Min price must be a number' })
+    @Min(0, { message: 'Min price cannot be negative' })
     minPrice?: number;
 
     @IsOptional()
-    @IsNumber()
+    @Transform(({ value }) => value === '' ? undefined : Number(value))
+    @IsNumber({}, { message: 'Max price must be a number' })
+    @Min(0, { message: 'Max price cannot be negative' })
     maxPrice?: number;
 
     @IsOptional()
-    @IsEnum(PropertyType)
-    propertyType?: PropertyType;
+    @IsString()
+    propertyType?: string;
 
     @IsOptional()
-    @IsEnum(RentalType)
-    rentalType?: RentalType;
+    @IsString()
+    rentalType?: string;
 }

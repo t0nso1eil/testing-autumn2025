@@ -1,6 +1,6 @@
 import { validate } from 'class-validator';
-import { UpdateUserDto } from "../../src/dto/user.dto";
-import { RoleEnum } from "../../src/models/role.enum";
+import { UpdateUserDto } from "../../../src/dto/user.dto";
+import { RoleEnum } from "../../../src/models/role.enum";
 
 describe('User DTO', () => {
     it('should validate correct update data', async () => {

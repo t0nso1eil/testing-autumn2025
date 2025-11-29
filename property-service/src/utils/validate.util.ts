@@ -16,7 +16,7 @@ export async function validateDto<T extends object>(
             Object.values(error.constraints || {})
         );
         res.status(400).json({
-            message: 'Validation failed',
+            message: `Validation failed: ${errorMessages.join(', ')}`,
             errors: errorMessages
         });
         return null;

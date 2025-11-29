@@ -1,17 +1,17 @@
 process.env.AUTH_SERVICE_URL = 'http://localhost:3000';
 
-jest.mock('../../src/services/favorite.service');
-jest.mock('../../src/services/auth.client');
-jest.mock('../../src/utils/validate.util');
+jest.mock('../../../src/services/favorite.service');
+jest.mock('../../../src/services/auth.client');
+jest.mock('../../../src/utils/validate.util');
 jest.mock('dotenv', () => ({
     config: jest.fn()
 }));
 
-import { FavoriteController } from "../../src/controllers/favorite.controller";
-import favoriteService from "../../src/services/favorite.service";
-import authClient from "../../src/services/auth.client";
-import { validateDto } from "../../src/utils/validate.util";
-import { CreateFavoriteDto, UpdateFavoriteDto } from "../../src/dto/favorite.dto";
+import { FavoriteController } from "../../../src/controllers/favorite.controller";
+import favoriteService from "../../../src/services/favorite.service";
+import authClient from "../../../src/services/auth.client";
+import { validateDto } from "../../../src/utils/validate.util";
+import { CreateFavoriteDto, UpdateFavoriteDto } from "../../../src/dto/favorite.dto";
 
 const mockedFavoriteService = jest.mocked(favoriteService);
 const mockedAuthClient = jest.mocked(authClient);

@@ -1,5 +1,5 @@
-import { validateDto } from "../../src/utils/validate.util";
-import { UpdateUserDto } from "../../src/dto/user.dto";
+import { validateDto } from "../../../src/utils/validate.util";
+import { UpdateUserDto } from "../../../src/dto/user.dto";
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 

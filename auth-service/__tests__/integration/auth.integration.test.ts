@@ -54,7 +54,7 @@ describe('Auth service integration tests', () => {
 
         console.log(`Test PostgreSQL running on ${host}:${port}`);
 
-        // создаем тестовую DataSource с параметрами из контейнера
+        // тестовая DataSource с параметрами из контейнера
         testDataSource = new DataSource({
             type: 'postgres',
             host,
@@ -92,6 +92,7 @@ describe('Auth service integration tests', () => {
         }
     });
 
+    // для отладки
     describe('Database connection test', () => {
         it('should have working database connection through mocked AppDataSource', async () => {
             const { AppDataSource } = require('../../src/config/database');
@@ -117,6 +118,7 @@ describe('Auth service integration tests', () => {
 
     describe('User registration flow', () => {
         it('should successfully register a new user and save to database', async () => {
+            // регистрация пользователя
             const userData = {
                 username: 'testuser',
                 email: 'test@test.com',
@@ -149,6 +151,7 @@ describe('Auth service integration tests', () => {
         });
 
         it('should fail registration when user already exists', async () => {
+            // валидация дублей
             const userData = {
                 username: 'existinguser',
                 email: 'existing@existoing.com',
@@ -192,6 +195,7 @@ describe('Auth service integration tests', () => {
         });
 
         it('should successfully login with valid credentials and return JWT token', async () => {
+            // авторизация
             const loginData = {
                 email: 'login@login.com',
                 password: 'password123!'
@@ -207,6 +211,7 @@ describe('Auth service integration tests', () => {
         });
 
         it('should fail login with invalid password', async () => {
+            // валидация реквизитов
             const loginData = {
                 email: 'login@login.com',
                 password: 'wrongpassword'

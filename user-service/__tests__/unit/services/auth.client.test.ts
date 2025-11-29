@@ -7,7 +7,7 @@ jest.mock('dotenv', () => ({
 jest.mock('axios');
 
 import axios from 'axios';
-import { AuthClient } from "../../src/services/auth.client";
+import { AuthClient } from "../../../src/services/auth.client";
 import { Request } from 'express';
 
 const mockedAxios = jest.mocked(axios);

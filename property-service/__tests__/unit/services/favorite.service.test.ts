@@ -8,22 +8,22 @@ jest.mock('dotenv', () => ({
     config: jest.fn()
 }));
 
-jest.mock('../../src/config/database');
-jest.mock('../../src/services/property.service');
-jest.mock('../../src/services/user.client');
-jest.mock('../../src/services/auth.client');
+jest.mock('../../../src/config/database');
+jest.mock('../../../src/services/property.service');
+jest.mock('../../../src/services/user.client');
+jest.mock('../../../src/services/auth.client');
 
-import { AppDataSource } from "../../src/config/database";
-import { FavoriteService } from "../../src/services/favorite.service";
-import propertyService from "../../src/services/property.service";
-import userClient from "../../src/services/user.client";
-import authClient from "../../src/services/auth.client";
-import { Favorite } from "../../src/models/favorite.entity";
-import { CreateFavoriteDto } from "../../src/dto/favorite.dto";
+import { AppDataSource } from "../../../src/config/database";
+import { FavoriteService } from "../../../src/services/favorite.service";
+import propertyService from "../../../src/services/property.service";
+import userClient from "../../../src/services/user.client";
+import authClient from "../../../src/services/auth.client";
+import { Favorite } from "../../../src/models/favorite.entity";
+import { CreateFavoriteDto } from "../../../src/dto/favorite.dto";
 import { Request } from 'express';
-import { Property } from '../../src/models/property.entity';
-import { PropertyType } from '../../src/models/property-type.enum';
-import { RentalType } from '../../src/models/rental-type.enum';
+import { Property } from '../../../src/models/property.entity';
+import { PropertyType } from '../../../src/models/property-type.enum';
+import { RentalType } from '../../../src/models/rental-type.enum';
 
 const mockedAppDataSource = jest.mocked(AppDataSource);
 const mockedPropertyService = jest.mocked(propertyService);

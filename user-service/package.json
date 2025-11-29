@@ -8,7 +8,9 @@
     "start": "node dist/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:integration": "jest --testPathPatterns=\"integration\" --forceExit",
+    "test:integration:watch": "jest --testPathPatterns=\"integration\" --watch"
   },
   "dependencies": {
     "axios": "^1.6.2",
@@ -25,9 +27,10 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^20.10.5",
     "@types/supertest": "^6.0.3",
-    "jest": "^30.1.3",
+    "jest": "^30.2.0",
     "supertest": "^7.1.4",
-    "ts-jest": "^29.4.4",
+    "testcontainers": "^11.9.0",
+    "ts-jest": "^29.4.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   }

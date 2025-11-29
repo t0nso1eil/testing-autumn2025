@@ -75,10 +75,10 @@ export class PropertyController {
     }
 
     async searchProperties(req: Request, res: Response) {
-        const dto = await validateDto(SearchPropertyDto, req.body, req, res);
-        if (!dto) return;
-
         try {
+            const dto = await validateDto(SearchPropertyDto, req.query, req, res);
+            if (!dto) return;
+
             const properties = await propertyService.searchProperties(dto);
             res.json(properties);
         } catch (error: any) {

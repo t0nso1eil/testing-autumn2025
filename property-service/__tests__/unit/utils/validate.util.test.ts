@@ -1,5 +1,5 @@
-import { validateDto } from "../../src/utils/validate.util";
-import { CreatePropertyDto } from "../../src/dto/property.dto";
+import { validateDto } from "../../../src/utils/validate.util";
+import { CreatePropertyDto } from "../../../src/dto/property.dto";
 
 describe('Validate util', () => {
     let mockRequest: any;

@@ -1,17 +1,17 @@
 process.env.AUTH_SERVICE_URL = 'http://localhost:3000';
 
-jest.mock('../../src/services/user.service');
-jest.mock('../../src/services/auth.client');
-jest.mock('../../src/utils/validate.util');
+jest.mock('../../../src/services/user.service');
+jest.mock('../../../src/services/auth.client');
+jest.mock('../../../src/utils/validate.util');
 jest.mock('dotenv', () => ({
     config: jest.fn()
 }));
 
-import { UserController } from "../../src/controllers/user.controller";
-import userService from "../../src/services/user.service";
-import authClient from "../../src/services/auth.client";
-import { validateDto } from "../../src/utils/validate.util";
-import { UpdateUserDto } from "../../src/dto/user.dto";
+import { UserController } from "../../../src/controllers/user.controller";
+import userService from "../../../src/services/user.service";
+import authClient from "../../../src/services/auth.client";
+import { validateDto } from "../../../src/utils/validate.util";
+import { UpdateUserDto } from "../../../src/dto/user.dto";
 
 const mockedUserService = jest.mocked(userService);
 const mockedAuthClient = jest.mocked(authClient);

@@ -8,13 +8,13 @@ jest.mock('dotenv', () => ({
     config: jest.fn()
 }));
 
-jest.mock('../../src/config/database');
+jest.mock('../../../src/config/database');
 
-import { AppDataSource } from "../../src/config/database";
-import { UserService } from "../../src/services/user.service";
-import { UserEntity } from "../../src/models/user.entity";
-import { RoleEnum } from "../../src/models/role.enum";
-import { UpdateUserDto } from "../../src/dto/user.dto";
+import { AppDataSource } from "../../../src/config/database";
+import { UserService } from "../../../src/services/user.service";
+import { UserEntity } from "../../../src/models/user.entity";
+import { RoleEnum } from "../../../src/models/role.enum";
+import { UpdateUserDto } from "../../../src/dto/user.dto";
 
 const mockedAppDataSource = jest.mocked(AppDataSource);
 
